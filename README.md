@@ -47,6 +47,104 @@ The alternative is Open Policy Agent (OPA) Gatekeeper. While OPA is powerful, it
 └── README.md
 ```
 
+
+## ðŸ“‹ Prerequisites
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| [kubectl](https://kubernetes.io/docs/tasks/tools/) | >= 1.28 | Kubernetes CLI |
+| [kind](https://kind.sigs.k8s.io/) or [minikube](https://minikube.sigs.k8s.io/) | Latest | Local K8s cluster |
+| [Helm](https://helm.sh/) | >= 3.x | Package manager |
+
+## ðŸš€ Step-by-Step Setup
+
+### Option A: Local Cluster (kind)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/SumitDalavi/k8s-policy-as-code.git
+cd k8s-policy-as-code
+
+# 2. Create a local cluster
+kind create cluster --name policy-lab
+
+# 3. Install Kyverno (policy engine)
+helm repo add kyverno https://kyverno.github.io/kyverno/
+helm install kyverno kyverno/kyverno --namespace kyverno --create-namespace
+
+# 4. Apply the policies
+kubectl apply -f policies/pod-security/disallow-privileged.yaml
+kubectl apply -f policies/network/require-network-policy.yaml
+```
+
+### Option B: Existing Cloud Cluster
+
+```bash
+kubectl cluster-info
+# Follow steps 3-4 from Option A
+```
+
+## ðŸ§ª Usage & Demo
+
+### Step 1: Verify policies are active
+```bash
+kubectl get clusterpolicies
+```
+
+### Step 2: Test policy enforcement â€” Privileged pod (should be BLOCKED)
+```bash
+# Try to create a privileged pod â€” Kyverno should deny it
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bad-pod
+spec:
+  containers:
+  - name: test
+    image: nginx
+    securityContext:
+      privileged: true
+EOF
+# Expected: Error from server: admission webhook denied the request
+```
+
+### Step 3: Test policy enforcement â€” Safe pod (should be ALLOWED)
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: good-pod
+spec:
+  containers:
+  - name: test
+    image: nginx
+    securityContext:
+      privileged: false
+EOF
+# Expected: pod/good-pod created
+```
+
+### Step 4: Run policy tests
+```bash
+kubectl apply -f tests/disallow-privileged-test.yaml
+```
+
+## âœ… Verification
+
+| Check | Command | Expected |
+|-------|---------|----------|
+| Kyverno running | `kubectl get pods -n kyverno` | Controller pods running |
+| Policies active | `kubectl get clusterpolicies` | Policies in Ready state |
+| Bad pod blocked | Apply privileged pod | Admission denied |
+| Good pod allowed | Apply non-privileged pod | Pod created |
+
+```bash
+# Cleanup
+kind delete cluster --name policy-lab
+```
+
 ## 👨‍💻 Author
 
 *Built to demonstrate DevSecOps, cluster hardening, and Policy-as-Code engineering.*
