@@ -48,7 +48,7 @@ The alternative is Open Policy Agent (OPA) Gatekeeper. While OPA is powerful, it
 ```
 
 
-## ðŸ“‹ Prerequisites
+## 📋 Prerequisites
 
 | Tool | Version | Purpose |
 |------|---------|---------|
@@ -56,7 +56,7 @@ The alternative is Open Policy Agent (OPA) Gatekeeper. While OPA is powerful, it
 | [kind](https://kind.sigs.k8s.io/) or [minikube](https://minikube.sigs.k8s.io/) | Latest | Local K8s cluster |
 | [Helm](https://helm.sh/) | >= 3.x | Package manager |
 
-## ðŸš€ Step-by-Step Setup
+## 🚀 Step-by-Step Setup
 
 ### Option A: Local Cluster (kind)
 
@@ -84,7 +84,7 @@ kubectl cluster-info
 # Follow steps 3-4 from Option A
 ```
 
-## ðŸ§ª Usage & Demo
+## 🧪 Usage & Demo
 
 ### Step 1: Verify policies are active
 ```bash
@@ -131,7 +131,7 @@ EOF
 kubectl apply -f tests/disallow-privileged-test.yaml
 ```
 
-## âœ… Verification
+## ✅ Verification
 
 | Check | Command | Expected |
 |-------|---------|----------|
@@ -147,4 +147,9 @@ kind delete cluster --name policy-lab
 
 ## 👨‍💻 Author
 
-*Built to demonstrate DevSecOps, cluster hardening, and Policy-as-Code engineering.*
+**Sumit Dalavi** — Senior DevSecOps / Platform Engineer
+[GitHub](https://github.com/SumitDalavi) | [LinkedIn](https://in.linkedin.com/in/sumit-dalavi-762838129)
+
+---
+
+*Built with a focus on production-grade patterns, not toy demos.*
