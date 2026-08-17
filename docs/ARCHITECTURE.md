@@ -1,5 +1,17 @@
 # Architecture: Policy-as-Code with Kyverno
 
+## System Diagram
+The following Mermaid.js sequence diagram maps the core workflow and interactions:
+
+```mermaid
+sequenceDiagram
+    User->>K8s: Create Pod (root)
+API->>Kyverno: Admission Review
+Kyverno->>Kyverno: Eval rules
+Kyverno-->>API: Block request
+```
+
+
 ## The Admission Controller Lifecycle
 Kyverno integrates directly with the Kubernetes API server via a `ValidatingWebhookConfiguration` and a `MutatingWebhookConfiguration`.
 
