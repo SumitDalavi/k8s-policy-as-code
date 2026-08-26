@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-standard-labels
+  annotations:
+    policies.kyverno.io/title: Require Standard Kubernetes Labels
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/description: >
+      All deployments must include the recommended Kubernetes standard labels
+      for proper service discovery, monitoring, and documentation.
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: require-labels
+      match:
+        any:
+          - resources:
+              kinds: [Deployment, StatefulSet, DaemonSet]
+      validate:
+        message: "Missing required labels: app.kubernetes.io/name, app.kubernetes.io/version, app.kubernetes.io/component"
+        pattern:
+          metadata:
+            labels:
+              app.kubernetes.io/name: "?*"
+              app.kubernetes.io/version: "?*"
+              app.kubernetes.io/component: "?*"

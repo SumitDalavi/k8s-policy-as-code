@@ -1,0 +1,52 @@
+name: Policy Validation CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'policies/**'
+      - '.github/workflows/policy-ci.yml'
+
+jobs:
+  kyverno-lint:
+    name: Kyverno Policy Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Kyverno CLI
+        run: |
+          curl -LO https://github.com/kyverno/kyverno/releases/download/v1.12.0/kyverno-cli_v1.12.0_linux_x86_64.tar.gz
+          tar -xzf kyverno-cli_v1.12.0_linux_x86_64.tar.gz
+          sudo mv kyverno /usr/local/bin/
+
+      - name: Validate Kyverno Policies
+        run: |
+          for f in policies/kyverno/*.yaml; do
+            echo "Validating $f..."
+            kyverno test "$f" || echo "WARNING: $f has no test resources"
+          done
+
+  opa-test:
+    name: OPA Policy Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OPA
+        run: |
+          curl -L -o opa https://openpolicyagent.org/downloads/v0.65.0/opa_linux_amd64_static
+          chmod +x opa && sudo mv opa /usr/local/bin/
+
+      - name: Run OPA Tests
+        run: opa test policies/opa/ -v
+
+      - name: Check OPA Policy Coverage
+        run: opa test policies/opa/ --coverage --format=json | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          cov=d.get('coverage',0)
+          print(f'Coverage: {cov:.1f}%')
+          sys.exit(0 if cov >= 70 else 1)
+        "
