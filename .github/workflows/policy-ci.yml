@@ -44,10 +44,5 @@ jobs:
 
       - name: Check OPA Policy Coverage
         run: |
-          opa test policies/opa/ --coverage --format=json | python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          cov=d.get('coverage',0)
-          print(f'Coverage: {cov:.1f}%')
-          sys.exit(0 if cov >= 70 else 1)
-          "
+          opa test policies/opa/ --coverage --format=json > coverage.json
+          python3 -c "import json,sys; d=json.load(open('coverage.json')); cov=d.get('coverage',0); print(f'Coverage: {cov:.1f}%'); sys.exit(0 if cov >= 70 else 1)"
