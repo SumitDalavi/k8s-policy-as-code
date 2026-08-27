@@ -1,4 +1,6 @@
 package rbac_test
+import future.keywords.if
+import future.keywords.in
 
 import data.rbac
 
