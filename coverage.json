@@ -1,0 +1,59 @@
+{
+  "files": {
+    "policies\\opa\\rbac_least_privilege.rego": {
+      "covered": [
+        {
+          "start": {
+            "row": 7
+          },
+          "end": {
+            "row": 13
+          }
+        },
+        {
+          "start": {
+            "row": 17
+          },
+          "end": {
+            "row": 23
+          }
+        }
+      ],
+      "covered_lines": 14,
+      "coverage": 100
+    },
+    "policies\\opa\\rbac_least_privilege_test.rego": {
+      "covered": [
+        {
+          "start": {
+            "row": 7
+          },
+          "end": {
+            "row": 8
+          }
+        },
+        {
+          "start": {
+            "row": 16
+          },
+          "end": {
+            "row": 17
+          }
+        },
+        {
+          "start": {
+            "row": 25
+          },
+          "end": {
+            "row": 26
+          }
+        }
+      ],
+      "covered_lines": 6,
+      "coverage": 100
+    }
+  },
+  "covered_lines": 20,
+  "not_covered_lines": 0,
+  "coverage": 100
+}
