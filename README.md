@@ -1,6 +1,7 @@
 # Kubernetes Policy-as-Code Security Platform 🛡️📜
 
-> A comprehensive suite of Kubernetes admission controls using Kyverno, enforcing strict security standards (Pod Security Standards, Network Policies, Image Provenance) before workloads ever hit the cluster.
+> **Maturity:** Lab / Reference Implementation
+> _A comprehensive suite of Kubernetes admission controls using Kyverno, enforcing strict security standards (Pod Security Standards, Network Policies, Image Provenance) before workloads ever hit the cluster._
 
 ## The Problem
 
@@ -150,6 +151,22 @@ kind delete cluster --name policy-lab
 **Sumit Dalavi** — Senior DevSecOps / Platform Engineer
 [GitHub](https://github.com/SumitDalavi) | [LinkedIn](https://in.linkedin.com/in/sumit-dalavi-762838129)
 
----
+## 📚 Documentation
 
-*Built with a focus on production-grade patterns, not toy demos.*
+- [Architecture](docs/ARCHITECTURE.md) — System diagram and component details
+- [Runbook](docs/runbook.md) — Setup, commands, and expected outputs
+- [Decisions](docs/decisions.md) — ADRs for policy engine
+- [Changelog](docs/changelog.md) — Change history
+- [Impact Report](docs/impact_report.md) — Before and After policy impact
+
+## Mock Boundaries (Honest Scope)
+
+| What | Status | Details |
+|---|---|---|
+| Policy Engine (Kyverno) | **Real** | Helm deployment of actual Kyverno controller. |
+| Kubernetes API | **Real** | Evaluates real `AdmissionReview` requests in `kind`. |
+| CI Pipeline Testing | **Simulated** | E2E demo scripts validate policy logic locally instead of running inside a GitHub Action runner. |
+
+## 🔗 Related Projects
+
+- [`supply-chain-security-pipeline`](../supply-chain-security-pipeline/) — Generates the signatures that Kyverno verifies.
