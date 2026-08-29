@@ -1,4 +1,5 @@
 # Architecture: Policy-as-Code with Kyverno
+> Maturity: Lab / Reference Implementation
 
 ## System Diagram
 The following Mermaid.js sequence diagram maps the core workflow and interactions:
