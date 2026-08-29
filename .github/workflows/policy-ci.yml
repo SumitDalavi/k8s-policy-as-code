@@ -25,7 +25,7 @@ jobs:
         run: |
           for f in policies/kyverno/*.yaml; do
             echo "Validating $f..."
-            kyverno test "$f"
+            if [ -d "$f" ]; then kyverno test "$f"; elif [ -d "${f%.yaml}" ]; then kyverno test "${f%.yaml}"; fi
           done
 
   opa-test:
