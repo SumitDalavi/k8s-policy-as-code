@@ -1,8 +1,10 @@
 # Kubernetes Policy-as-Code Security Platform 🛡️📜
 
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/k8s-policy-as-code)](https://github.com/SumitDalavi/k8s-policy-as-code/releases)
+[![CI Pipeline](https://github.com/SumitDalavi/k8s-policy-as-code/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/SumitDalavi/k8s-policy-as-code/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/k8s-policy-as-code?color=0969da&label=release&logo=github)](https://github.com/SumitDalavi/k8s-policy-as-code/releases)
 [![Release Workflow](https://github.com/SumitDalavi/k8s-policy-as-code/actions/workflows/release.yml/badge.svg)](https://github.com/SumitDalavi/k8s-policy-as-code/actions/workflows/release.yml)
-
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/k8s-policy-as-code/releases/tag/v0.2.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 > **Maturity:** Lab / Reference Implementation
 > _A comprehensive suite of Kubernetes admission controls using Kyverno, enforcing strict security standards (Pod Security Standards, Network Policies, Image Provenance) before workloads ever hit the cluster._
@@ -51,7 +53,6 @@ The alternative is Open Policy Agent (OPA) Gatekeeper. While OPA is powerful, it
 ├── docs/ARCHITECTURE.md
 └── README.md
 ```
-
 
 ## 📋 Prerequisites
 
@@ -173,7 +174,6 @@ Deploy policies to a local Kind or Minikube test cluster to verify real admissio
 ### Tier 3: Production Admission Controller
 Deploy across production multi-tenant clusters via GitOps controllers (ArgoCD / Flux).
 - **Distribution:** Release packages and verified SPDX SBOM available on [GitHub Releases](https://github.com/SumitDalavi/k8s-policy-as-code/releases).
-
 
 ## 📚 Documentation
 
