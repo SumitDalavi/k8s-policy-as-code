@@ -33,7 +33,8 @@ jobs:
       - name: Package Release Distribution Bundle
         run: |
           ARCHIVE_NAME="${{ github.event.repository.name }}-${{ github.ref_name }}.tar.gz"
-          tar --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='venv' --exclude='.venv' --exclude='__pycache__' --exclude='.terraform' -czf "$ARCHIVE_NAME" .
+          tar --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='venv' --exclude='.venv' --exclude='__pycache__' --exclude='.terraform' -czf "/tmp/$ARCHIVE_NAME" .
+          mv "/tmp/$ARCHIVE_NAME" .
           sha256sum "$ARCHIVE_NAME" > checksums.txt
           echo "Package created: $ARCHIVE_NAME"
           ls -lh "$ARCHIVE_NAME" checksums.txt
