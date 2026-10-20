@@ -51,6 +51,6 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            *.tar.gz
+            ${{ github.event.repository.name }}-*.tar.gz
             checksums.txt
             sbom.spdx.json
