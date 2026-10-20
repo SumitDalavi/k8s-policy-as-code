@@ -155,29 +155,25 @@ kind delete cluster --name policy-lab
 **Sumit Dalavi** — Senior DevSecOps / Platform Engineer
 [GitHub](https://github.com/SumitDalavi) | [LinkedIn](https://in.linkedin.com/in/sumit-dalavi-762838129)
 
-## 🚀 Progressive Credential Loading & Execution Tiers
+## 🛠️ Verification & Deployment Tiers
 
-This project implements **Progressive Credential Loading (PCL)**, allowing it to run immediately out-of-the-box without external dependencies while seamlessly upgrading as credentials are provided.
+This policy catalog supports progressive verification from local static validation to production cluster admission enforcement.
 
-### Tier 1: Zero-Config Mock Mode (Default)
-Ideal for CI, testing, and rapid local evaluation.
-- **Execution:** Run with default configuration (`cp .env.example .env`). Zero API keys, databases, or cloud credentials required.
-- **Fallback Behavior:** In-memory caches, deterministic offline heuristics, mock vector embeddings, and local mock storage are automatically used.
-- **Health Verification:** Endpoints report `{"mode": "mock"}` for unconfigured dependencies.
+### Tier 1: Local Static Validation (Default)
+Validate policies and test resources offline without requiring a Kubernetes cluster.
+- **Execution:** Run Kyverno CLI or conftest locally: `kyverno test .` or `conftest test manifests/`.
+- **Behavior:** Tests admission rules against positive and negative test fixtures locally.
+- **Zero Cluster Dependencies:** No running Kubernetes cluster or cloud permissions required.
 
-### Tier 2: Local Development with Live Services
-Connect specific external services while keeping others mocked.
-- **Execution:** Provide credentials in `.env` for the services you want active (e.g., `POLICY_REPORT_DIR`).
-- **Progressive Upgrade:** The runtime inspects environment variables on boot and dynamically promotes only configured modules to live mode.
-- **Safe Fallback:** Any missing credentials automatically remain on mock fallbacks with no crashes or missing service errors.
+### Tier 2: Sandbox / Kind Cluster Testing
+Deploy policies to a local Kind or Minikube test cluster to verify real admission control webhooks.
+- **Execution:** Apply policies to local test cluster: `kubectl apply -f policies/`.
+- **Behavior:** Verifies admission rejections and mutation webhooks in a realistic Kubernetes control plane.
 
-### Tier 3: Production Hardened
-Enterprise deployment with production-grade backends, security scans, and container distributions.
-- **Release Distribution:** Download standalone release bundle and verified checksums:
-  ```bash
-  gh release download v0.2.0 --repo SumitDalavi/k8s-policy-as-code
-  ```
-- **Integrity & Security:** Checksums and SPDX SBOM (`sbom.spdx.json`) available on [GitHub Releases](https://github.com/SumitDalavi/k8s-policy-as-code/releases).
+### Tier 3: Production Admission Controller
+Deploy across production multi-tenant clusters via GitOps controllers (ArgoCD / Flux).
+- **Distribution:** Release packages and verified SPDX SBOM available on [GitHub Releases](https://github.com/SumitDalavi/k8s-policy-as-code/releases).
+
 
 ## 📚 Documentation
 
