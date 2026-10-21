@@ -6,8 +6,7 @@
 [![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/k8s-policy-as-code/releases/tag/v0.2.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-> **Maturity:** Lab / Reference Implementation
-> _A comprehensive suite of Kubernetes admission controls using Kyverno, enforcing strict security standards (Pod Security Standards, Network Policies, Image Provenance) before workloads ever hit the cluster._
+> A comprehensive suite of Kubernetes admission controls using Kyverno, enforcing strict security standards (Pod Security Standards, Network Policies, Image Provenance) before workloads ever hit the cluster.
 
 ## The Problem
 
